@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-pg/pg/extra/pgdebug/v10"
 	"github.com/go-pg/pg/v10"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/logging"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
 	"github.com/pkg/errors"
 )
 
@@ -64,7 +64,7 @@ func validateTimeZone(db *pg.DB) error {
 	}
 
 	if _, ok := allowedTimeZones[timeZone]; !ok {
-		return errors.Errorf("to prevent conversion errors - Kasparov should only run with "+
+		return errors.Errorf("to prevent conversion errors - Karlsen API server should only run with "+
 			"a database configured to use one of the allowed timezone. Currently configured timezone "+
 			"is %s. Allowed time zones: %s", timeZone, allowedTimezonesString())
 	}

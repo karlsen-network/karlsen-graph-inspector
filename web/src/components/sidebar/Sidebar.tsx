@@ -4,7 +4,7 @@ import Dag from "../../dag/Dag";
 import { AppConfig } from "../../model/AppConfig";
 import ZoomItem from "../base/ZoomItem";
 import ConnectionIssuesIndicator from "./ConnectionIssuesIndicator";
-import KaspaLogo from "./KaspaButton";
+import KarlsenLogo from "./KarlsenButton";
 import ScaleButtons from "./ScaleButtons";
 import TrackButton from "./TrackButton";
 
@@ -39,7 +39,7 @@ const Sidebar = ({dag, appConfig}: {dag: Dag, appConfig: AppConfig | null}) => {
                     alignItems: 'center',
                     gap: '12px',
                 }}>
-                <KaspaLogo appConfig={appConfig} />
+                <KarlsenLogo appConfig={appConfig} />
             </Box>
 
             <ZoomItem visible={isHavingConnectionIssuesState}>

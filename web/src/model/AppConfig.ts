@@ -1,7 +1,7 @@
 import { packageVersion } from "../version";
 
 export type AppConfig = {
-    kaspadVersion: string,
+    karlsendVersion: string,
     processingVersion: string,
     network: string,
     apiVersion: string,
@@ -10,7 +10,7 @@ export type AppConfig = {
 
 export function getDefaultAppConfig(): AppConfig {
     return {
-        kaspadVersion: "n/a",
+        karlsendVersion: "n/a",
         processingVersion: "n/a",
         network: "n/a",
         apiVersion: "n/a",
@@ -19,7 +19,7 @@ export function getDefaultAppConfig(): AppConfig {
 }
 
 export function areAppConfigsEqual(left: AppConfig, right: AppConfig): boolean {
-    return left.kaspadVersion === right.kaspadVersion
+    return left.karlsendVersion === right.karlsendVersion
         && left.processingVersion === right.processingVersion
         && left.network === right.network
         && left.apiVersion === right.apiVersion
@@ -27,9 +27,9 @@ export function areAppConfigsEqual(left: AppConfig, right: AppConfig): boolean {
 }
 
 export function isTestnet(appConfig: AppConfig): boolean {
-    return appConfig.network.startsWith("kaspa-testnet");
+    return appConfig.network.startsWith("karlsen-testnet");
 }
 
 export function isMainnet(appConfig: AppConfig): boolean {
-    return appConfig.network === "kaspa-mainnet";
+    return appConfig.network === "karlsen-mainnet";
 }

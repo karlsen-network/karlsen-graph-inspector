@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/kaspanet/kaspad/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/infrastructure/logger"
 )
 
 var (

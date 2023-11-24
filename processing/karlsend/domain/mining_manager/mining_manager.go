@@ -1,9 +1,9 @@
 package mining_manager
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/miningmanager"
-	miningmanagermodel "github.com/kaspanet/kaspad/domain/miningmanager/model"
+	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/domain/miningmanager"
+	miningmanagermodel "github.com/karlsen-network/karlsend/domain/miningmanager/model"
 )
 
 func New() miningmanager.MiningManager {

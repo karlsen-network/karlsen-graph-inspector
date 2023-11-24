@@ -4,18 +4,18 @@ import (
 	"sync"
 
 	"github.com/go-pg/pg/v10"
-	databasePackage "github.com/kaspa-live/kaspa-graph-inspector/processing/database"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/database/model"
-	configPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/config"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/logging"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/tools"
-	kaspadPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/kaspad"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/processing/batch"
-	versionPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/version"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/infrastructure/db/database"
-	"github.com/kaspanet/kaspad/version"
+	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/database/model"
+	configPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/tools"
+	karlsendPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/processing/batch"
+	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
+	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/version"
 	"github.com/pkg/errors"
 )
 
@@ -24,18 +24,18 @@ var log = logging.Logger()
 type Processing struct {
 	config    *configPackage.Config
 	database  *databasePackage.Database
-	kaspad    *kaspadPackage.Kaspad
+	karlsend  *karlsendPackage.Karlsend
 	appConfig *model.AppConfig
 
 	sync.Mutex
 }
 
 func NewProcessing(config *configPackage.Config,
-	database *databasePackage.Database, kaspad *kaspadPackage.Kaspad) (*Processing, error) {
+	database *databasePackage.Database, karlsend *karlsendPackage.Karlsend) (*Processing, error) {
 
 	appConfig := &model.AppConfig{
 		ID:                true,
-		KaspadVersion:     version.Version(),
+		KarlsendVersion:   version.Version(),
 		ProcessingVersion: versionPackage.Version(),
 		Network:           config.ActiveNetParams.Name,
 	}
@@ -43,7 +43,7 @@ func NewProcessing(config *configPackage.Config,
 	processing := &Processing{
 		config:    config,
 		database:  database,
-		kaspad:    kaspad,
+		karlsend:  karlsend,
 		appConfig: appConfig,
 	}
 	processing.initConsensusEventsHandler()
@@ -64,7 +64,7 @@ func NewProcessing(config *configPackage.Config,
 func (p *Processing) initConsensusEventsHandler() {
 	go func() {
 		for {
-			consensusEvent, ok := <-p.kaspad.Domain().ConsensusEventsChannel()
+			consensusEvent, ok := <-p.karlsend.Domain().ConsensusEventsChannel()
 			if !ok {
 				return
 			}
@@ -104,12 +104,12 @@ func (p *Processing) ResyncDatabase() error {
 		log.Infof("Resyncing database")
 		defer log.Infof("Finished resyncing database")
 
-		pruningPointHash, err := p.kaspad.Domain().Consensus().PruningPoint()
+		pruningPointHash, err := p.karlsend.Domain().Consensus().PruningPoint()
 		if err != nil {
 			return err
 		}
 
-		pruningPointBlock, _, err := p.kaspad.Domain().Consensus().GetBlock(pruningPointHash)
+		pruningPointBlock, _, err := p.karlsend.Domain().Consensus().GetBlock(pruningPointHash)
 		if err != nil {
 			return err
 		}
@@ -170,12 +170,12 @@ func (p *Processing) ResyncDatabase() error {
 			log.Infof("Pruning point %s has been added to the database", pruningPointHash)
 		}
 
-		headersSelectedTip, err := p.kaspad.Domain().Consensus().GetHeadersSelectedTip()
+		headersSelectedTip, err := p.karlsend.Domain().Consensus().GetHeadersSelectedTip()
 		if err != nil {
 			return err
 		}
 		log.Infof("Load node blocks")
-		hashesBetweenPruningPointAndHeadersSelectedTip, _, err := p.kaspad.Domain().Consensus().GetHashesBetween(pruningPointHash, headersSelectedTip, 0)
+		hashesBetweenPruningPointAndHeadersSelectedTip, _, err := p.karlsend.Domain().Consensus().GetHashesBetween(pruningPointHash, headersSelectedTip, 0)
 		if err != nil {
 			return err
 		}
@@ -229,7 +229,7 @@ func (p *Processing) ResyncDatabase() error {
 		totalToAdd := len(hashesBetweenPruningPointAndHeadersSelectedTip) - startIndex
 		for i := startIndex; i < len(hashesBetweenPruningPointAndHeadersSelectedTip); i++ {
 			blockHash := hashesBetweenPruningPointAndHeadersSelectedTip[i]
-			block, err := p.kaspad.Domain().Consensus().GetBlockEvenIfHeaderOnly(blockHash)
+			block, err := p.karlsend.Domain().Consensus().GetBlockEvenIfHeaderOnly(blockHash)
 			if err != nil {
 				return err
 			}
@@ -271,10 +271,10 @@ func (p *Processing) resyncVirtualSelectedParentChain(databaseTransaction *pg.Tx
 	}
 	log.Infof("Resyncing virtual selected parent chain from block %s", highestBlockHash)
 
-	virtualSelectedParentChain, err := p.kaspad.Domain().Consensus().GetVirtualSelectedParentChainFromBlock(highestBlockHash)
+	virtualSelectedParentChain, err := p.karlsend.Domain().Consensus().GetVirtualSelectedParentChainFromBlock(highestBlockHash)
 	if err != nil {
 		if database.IsNotFoundError(err) {
-			// This may occur when restoring a kgi database on a system which kaspad database
+			// This may occur when restoring a kgi database on a system which karlsend database
 			// is older than the kgi database.
 			log.Errorf("Could not get virtual selected parent chain from block %s: %s", highestBlockHash, err)
 			return nil
@@ -284,7 +284,7 @@ func (p *Processing) resyncVirtualSelectedParentChain(databaseTransaction *pg.Tx
 	}
 	if len(virtualSelectedParentChain.Added) > 0 {
 		virtualSelectedParentHash := virtualSelectedParentChain.Added[len(virtualSelectedParentChain.Added)-1]
-		virtualSelectedParentBlock, _, err := p.kaspad.Domain().Consensus().GetBlock(virtualSelectedParentHash)
+		virtualSelectedParentBlock, _, err := p.karlsend.Domain().Consensus().GetBlock(virtualSelectedParentHash)
 		if err != nil {
 			return err
 		}
@@ -319,7 +319,7 @@ func (p *Processing) ProcessBlock(block *externalapi.DomainBlock) error {
 func (p *Processing) processBlockAndDependencies(databaseTransaction *pg.Tx, hash *externalapi.DomainHash,
 	block, pruningBlock *externalapi.DomainBlock) error {
 
-	batch := batch.New(p.database, p.kaspad, pruningBlock)
+	batch := batch.New(p.database, p.karlsend, pruningBlock)
 	err := batch.CollectBlockAndDependencies(databaseTransaction, hash, block)
 	if err != nil {
 		return err
@@ -449,7 +449,7 @@ func (p *Processing) processBlock(databaseTransaction *pg.Tx, block *externalapi
 		log.Debugf("Block %s already exists in database; not processed", blockHash)
 	}
 
-	blockInfo, err := p.kaspad.Domain().Consensus().GetBlockInfo(blockHash)
+	blockInfo, err := p.karlsend.Domain().Consensus().GetBlockInfo(blockHash)
 	if err != nil {
 		// enhanced error description
 		return errors.Wrapf(err, "Could not get block info for block %s", blockHash)
@@ -458,7 +458,7 @@ func (p *Processing) processBlock(databaseTransaction *pg.Tx, block *externalapi
 		return nil
 	}
 
-	blockGHOSTDAGData, err := p.kaspad.BlockGHOSTDAGData(blockHash)
+	blockGHOSTDAGData, err := p.karlsend.BlockGHOSTDAGData(blockHash)
 	if err != nil {
 		return errors.Wrapf(err, "Could not get GHOSTDAG data for block %s", blockHash)
 	}
@@ -556,7 +556,7 @@ func (p *Processing) processVirtualChange(databaseTransaction *pg.Tx, blockInser
 	}
 
 	for _, addedBlockHash := range addedBlockHashes {
-		addedBlockGHOSTDAGData, err := p.kaspad.BlockGHOSTDAGData(addedBlockHash)
+		addedBlockGHOSTDAGData, err := p.karlsend.BlockGHOSTDAGData(addedBlockHash)
 		if err != nil {
 			return errors.Wrapf(err, "Could not get GHOSTDAG data for added block %s", addedBlockHash)
 		}
@@ -595,7 +595,7 @@ func (p *Processing) processVirtualChange(databaseTransaction *pg.Tx, blockInser
 func (p *Processing) getBlocksDAAScores(databaseTransaction *pg.Tx, blockHashes []*externalapi.DomainHash) (map[uint64]uint64, error) {
 	results := make(map[uint64]uint64)
 	for _, blockHash := range blockHashes {
-		block, err := p.kaspad.Domain().Consensus().GetBlockHeader(blockHash)
+		block, err := p.karlsend.Domain().Consensus().GetBlockHeader(blockHash)
 		if err != nil {
 			return nil, err
 		}

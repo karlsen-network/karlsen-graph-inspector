@@ -1,16 +1,16 @@
-kaspa-graph-inspector
-=====================
+karlsen-graph-inspector
+=======================
 
 KGI is comprised of four components:
 
 * A postgres database
-* A `processing` kaspa node (this is simply a kaspad wrapped in some extra logic)
+* A `processing` karlsen node (this is simply a karlsend wrapped in some extra logic)
 * An `api` REST server
 * A `web` server
 
 How the components interact:
 
-* The `processing` node connects to the Kaspa network the same way a regular kaspad node does and starts syncing just as a kaspad node would
+* The `processing` node connects to the Karlsen network the same way a regular karlsend node does and starts syncing just as a karlsend node would
 * While it's syncing, it writes metadata about every block to the postgres database
 * From the other end, the `web` server listens to http requests on some port
 * When a user navigates their browser to that port, the `web` server serves the KGI clientside logic, which includes the UI
@@ -33,8 +33,8 @@ For development, it's recommended to run KGI from within Docker
    5. KATNIP_ADDRESS=localhost
    6. API_PORT=4575
    7. WEB_PORT=8080
-   8. KASPAD_VERSION=4a560f25a60e876b58d2643ca6eb7e07525e76cc (this can be either a specific kaspda commit hash or a kaspad tag)
-   9. KASPA_LIVE_ADDRESS=localhost
+   8. KARLSEND_VERSION=4a560f25a60e876b58d2643ca6eb7e07525e76cc (this can be either a specific karlsen commit hash or a karlsend tag)
+   9. KARLSEN_LIVE_ADDRESS=localhost
 4. Run: `./docker-run.sh`
 
 Deployment
@@ -44,8 +44,8 @@ Deployment
 2. Build `processing`
    1. Make sure the go build environment is set up by running `go version`
    2. Within the `processing` directory, edit `go.mod`:
-      1. Delete the line that starts with `replace github.com/kaspanet/kaspad`
-      2. Set your desired kaspad version in the line under `require` that starts with `github.com/kaspanet/kaspad`
+      1. Delete the line that starts with `replace github.com/karlsen-network/karlsend`
+      2. Set your desired karlsend version in the line under `require` that starts with `github.com/karlsen-network/karlsend`
    3. Within the `processing` directory, run `go build -o  kgi-processing .`. This will produce an executable file named `kgi-processing`
    4. Copy `kgi-processing` and `database` directory (also within the `processing` directory) to wherever you wish to run the node from
 3. Build `api`
@@ -57,8 +57,8 @@ Deployment
    2. Within the `web` directory, run: `npm install`
    3. Set the following environment variables:
       1. REACT_APP_API_ADDRESS=example.com:1234 (this is the public address of where your `api` server will be)
-      2. REACT_APP_EXPLORER_ADDRESS=explorer.kaspa.org
-      3. REACT_APP_KASPA_LIVE_ADDRESS=kaspa.live
+      2. REACT_APP_EXPLORER_ADDRESS=explorer.karlsencoin.com
+      3. REACT_APP_KARLSEN_LIVE_ADDRESS=karlsen.live
    4. Within the `web` directory, run: `npm run build`
    5. Copy the entire `web` directory to wherever you wish to run the `web` server from
 5. Run `processing`
