@@ -10,7 +10,7 @@ services:
     network_mode: host
 
   processing:
-    image: "kaspa-graph-inspector-processing:latest"
+    image: "karlsen-graph-inspector-processing:latest"
     depends_on:
       - postgres
     command:
@@ -21,7 +21,7 @@ services:
     restart: always
 
   api:
-    image: "kaspa-graph-inspector-api:latest"
+    image: "karlsen-graph-inspector-api:latest"
     depends_on:
       - postgres
     environment:
@@ -42,7 +42,7 @@ services:
     restart: always
 
   web:
-    image: "kaspa-graph-inspector-web:latest"
+    image: "karlsen-graph-inspector-web:latest"
     depends_on:
       - postgres
     command:

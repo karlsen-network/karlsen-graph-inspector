@@ -1,7 +1,7 @@
 FROM golang:1.16-alpine AS build
 
-# gcc and libc (musl-dev) are required by kaspad
-# git is required to build kaspad by commit-hash
+# gcc and libc (musl-dev) are required by karlsend
+# git is required to build karlsend by commit-hash
 RUN apk add gcc musl-dev git
 
 RUN mkdir /build
@@ -10,14 +10,14 @@ WORKDIR /build
 COPY ./go.mod .
 COPY ./go.sum .
 
-ARG KASPAD_VERSION
+ARG KARLSEND_VERSION
 
-# Exit if KASPAD_VERSION is not set
-RUN if [ -z "${KASPAD_VERSION}" ]; then exit 1; fi
-ARG KASPAD_REPOSITORY='github.com/kaspanet/kaspad'
+# Exit if KARLSEND_VERSION is not set
+RUN if [ -z "${KARLSEND_VERSION}" ]; then exit 1; fi
+ARG KARLSEND_REPOSITORY='github.com/karlsen-network/karlsend'
 
-# Replace the kaspad version in go.mod
-RUN go mod edit -replace github.com/kaspanet/kaspad=$KASPAD_REPOSITORY@$KASPAD_VERSION
+# Replace the karlsend version in go.mod
+RUN go mod edit -replace github.com/karlsen-network/karlsend=$KARLSEND_REPOSITORY@$KARLSEND_VERSION
 
 RUN go mod download
 

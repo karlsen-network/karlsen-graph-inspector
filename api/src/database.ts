@@ -146,14 +146,14 @@ export default class Database {
       const result = await client.query('SELECT * FROM app_config');
       if (result.rows.length === 0) {
         return {
-            kaspadVersion: "",
+            karlsendVersion: "",
             processingVersion: "",
             network: "",
             apiVersion: "",
         }
       }
       return {
-        kaspadVersion: result.rows[0].kaspad_version,
+        karlsendVersion: result.rows[0].karlsend_version,
         processingVersion: result.rows[0].processing_version,
         network:  result.rows[0].network,
         apiVersion: packageVersion,

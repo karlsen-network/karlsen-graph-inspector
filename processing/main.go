@@ -3,19 +3,19 @@ package main
 import (
 	"fmt"
 
-	databasePackage "github.com/kaspa-live/kaspa-graph-inspector/processing/database"
-	configPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/config"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/logging"
-	kaspadPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/kaspad"
-	processingPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/processing"
-	versionPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/version"
-	"github.com/kaspanet/kaspad/version"
+	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
+	configPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	karlsendPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend"
+	processingPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/processing"
+	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
+	"github.com/karlsen-network/karlsend/version"
 )
 
 func main() {
-	fmt.Println("=================================================")
-	fmt.Println("Kaspa Graph Inspector (KGI)   -   Processing Tier")
-	fmt.Println("=================================================")
+	fmt.Println("===================================================")
+	fmt.Println("Karlsen Graph Inspector (KGI)   -   Processing Tier")
+	fmt.Println("===================================================")
 
 	config, err := configPackage.LoadConfig()
 	if err != nil {
@@ -23,7 +23,7 @@ func main() {
 	}
 
 	logging.Logger().Infof("Application version %s", versionPackage.Version())
-	logging.Logger().Infof("Embedded kaspad version %s", version.Version())
+	logging.Logger().Infof("Embedded kalrsend version %s", version.Version())
 	logging.Logger().Infof("Network %s", config.ActiveNetParams.Name)
 
 	database, err := databasePackage.Connect(config.DatabaseConnectionString)
@@ -32,43 +32,30 @@ func main() {
 	}
 	defer database.Close()
 
-	kaspad, err := kaspadPackage.New(config)
+	karlsend, err := karlsendPackage.New(config)
 	if err != nil {
-		logging.LogErrorAndExit("Could not create kaspad: %s", err)
+		logging.LogErrorAndExit("Could not create karlsend: %s", err)
 	}
-	processing, err := processingPackage.NewProcessing(config, database, kaspad)
+	processing, err := processingPackage.NewProcessing(config, database, karlsend)
 	if err != nil {
 		logging.LogErrorAndExit("Could not initialize processing: %s", err)
 	}
 
-	// This is no longer useful since kaspad v0.12.2
-	// that introduce a consensus event channel.
-	// See processing.initConsensusEventsHandler.
-
-	// kaspad.SetOnBlockAddedListener(func(block *externalapi.DomainBlock) {
-	// 	blockHash := consensushashing.BlockHash(block)
-	// 	blockInfo, err := kaspad.Domain().Consensus().GetBlockInfo(blockHash)
-	// 	if err != nil {
-	// 		logging.LogErrorAndExit("Consensus ValidateAndInsertBlock listener could not get block info for block %s: %s", blockHash, err)
-	// 	}
-	// 	logging.Logger().Debugf("Consensus ValidateAndInsertBlock listener gets block %s with status %s", blockHash, blockInfo.BlockStatus.String())
-	// })
-
-	kaspad.SetOnVirtualResolvedListener(func() {
+	karlsend.SetOnVirtualResolvedListener(func() {
 		err := processing.ResyncVirtualSelectedParentChain()
 		if err != nil {
 			logging.LogErrorAndExit("Could not resync the virtual selected parent chain: %s", err)
 		}
 	})
-	kaspad.SetOnConsensusResetListener(func() {
+	karlsend.SetOnConsensusResetListener(func() {
 		err := processing.ResyncDatabase()
 		if err != nil {
 			logging.LogErrorAndExit("Could not resync database: %s", err)
 		}
 	})
-	err = kaspad.Start()
+	err = karlsend.Start()
 	if err != nil {
-		logging.LogErrorAndExit("Could not start kaspad: %s", err)
+		logging.LogErrorAndExit("Could not start karlsend: %s", err)
 	}
 
 	<-make(chan struct{})

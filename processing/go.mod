@@ -1,4 +1,4 @@
-module github.com/kaspa-live/kaspa-graph-inspector/processing
+module github.com/karlsen-network/karlsen-graph-inspector/processing
 
 go 1.19
 
@@ -6,7 +6,7 @@ require (
 	github.com/go-pg/pg/v10 v10.10.6
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/jessevdk/go-flags v1.4.0
-	github.com/kaspanet/kaspad v0.12.3
+	github.com/karlsen-network/karlsend v0.12.3
 	github.com/pkg/errors v0.9.1
 	golang.org/x/exp v0.0.0-20220414153411-bcd21879b8fd
 )
@@ -51,4 +51,4 @@ require (
 	mellium.im/sasl v0.2.1 // indirect
 )
 
-replace github.com/kaspanet/kaspad => ../../../kaspanet/kaspad
+replace github.com/karlsen-network/karlsend => ../../../karlsen-network/karlsend

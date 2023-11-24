@@ -40,7 +40,7 @@ type AppConfig struct {
 	tableName struct{} `pg:"app_config,alias:app_config"`
 
 	ID                bool   `pg:"id,pk"`
-	KaspadVersion     string `pg:"kaspad_version"`
+	KarlsendVersion   string `pg:"karlsend_version"`
 	ProcessingVersion string `pg:"processing_version"`
 	Network           string `pg:"network"`
 }

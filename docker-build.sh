@@ -4,11 +4,11 @@ set -e
 
 # Verify that all the required environment variables are set
 declare -A REQUIRED_VARIABLES
-REQUIRED_VARIABLES["KASPAD_VERSION"]="${KASPAD_VERSION}"
+REQUIRED_VARIABLES["KARLSEND_VERSION"]="${KARLSEND_VERSION}"
 REQUIRED_VARIABLES["API_ADDRESS"]="${API_ADDRESS}"
 REQUIRED_VARIABLES["API_PORT"]="${API_PORT}"
 REQUIRED_VARIABLES["KATNIP_ADDRESS"]="${KATNIP_ADDRESS}"
-REQUIRED_VARIABLES["KASPA_LIVE_ADDRESS"]="${KASPA_LIVE_ADDRESS}"
+REQUIRED_VARIABLES["KARLSEN_LIVE_ADDRESS"]="${KARLSEN_LIVE_ADDRESS}"
 
 REQUIRED_VARIABLE_NOT_SET=false
 for REQUIRED_VARIABLE_NAME in "${!REQUIRED_VARIABLES[@]}"; do
@@ -28,13 +28,13 @@ if [ true = "${REQUIRED_VARIABLE_NOT_SET}" ]; then
 fi
 
 # Build processing
-docker build -f processing/Dockerfile -t kaspa-graph-inspector-processing:latest --build-arg KASPAD_VERSION="${KASPAD_VERSION}" processing
+docker build -f processing/Dockerfile -t karlsen-graph-inspector-processing:latest --build-arg KARLSEND_VERSION="${KARLSEND_VERSION}" processing
 
 # Build api
-docker build -f api/Dockerfile -t kaspa-graph-inspector-api:latest api
+docker build -f api/Dockerfile -t karlsen-graph-inspector-api:latest api
 
 # Build web
 REACT_APP_API_ADDRESS="${API_ADDRESS}:${API_PORT}"
 REACT_APP_KATNIP_ADDRESS="${KATNIP_ADDRESS}"
-REACT_APP_KASPA_LIVE_ADDRESS="${KASPA_LIVE_ADDRESS}"
-docker build -f web/Dockerfile --build-arg REACT_APP_API_ADDRESS="${REACT_APP_API_ADDRESS}" --build-arg REACT_APP_KATNIP_ADDRESS="${REACT_APP_KATNIP_ADDRESS}" --build-arg REACT_APP_KASPA_LIVE_ADDRESS="${REACT_APP_KASPA_LIVE_ADDRESS}" -t kaspa-graph-inspector-web:latest web
+REACT_APP_KARLSEN_LIVE_ADDRESS="${KARLSEN_LIVE_ADDRESS}"
+docker build -f web/Dockerfile --build-arg REACT_APP_API_ADDRESS="${REACT_APP_API_ADDRESS}" --build-arg REACT_APP_KATNIP_ADDRESS="${REACT_APP_KATNIP_ADDRESS}" --build-arg REACT_APP_KARLSEN_LIVE_ADDRESS="${REACT_APP_KARLSEN_LIVE_ADDRESS}" -t karlsen-graph-inspector-web:latest web

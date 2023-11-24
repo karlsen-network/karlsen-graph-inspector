@@ -2,11 +2,11 @@ package batch
 
 import (
 	"github.com/go-pg/pg/v10"
-	databasePackage "github.com/kaspa-live/kaspa-graph-inspector/processing/database"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/logging"
-	kaspadPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/kaspad"
-	"github.com/kaspanet/kaspad/domain/consensus/database"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	karlsendPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend"
+	"github.com/karlsen-network/karlsend/domain/consensus/database"
+	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 
@@ -14,7 +14,7 @@ var log = logging.Logger()
 
 type Batch struct {
 	database      *databasePackage.Database
-	kaspad        *kaspadPackage.Kaspad
+	karlsend      *karlsendPackage.Karlsend
 	blocks        []*BlockAndHash
 	hashes        map[externalapi.DomainHash]*BlockAndHash
 	prunningBlock *externalapi.DomainBlock
@@ -27,10 +27,10 @@ type BlockAndHash struct {
 	hash *externalapi.DomainHash
 }
 
-func New(database *databasePackage.Database, kaspad *kaspadPackage.Kaspad, prunningBlock *externalapi.DomainBlock) *Batch {
+func New(database *databasePackage.Database, karlsend *karlsendPackage.Karlsend, prunningBlock *externalapi.DomainBlock) *Batch {
 	batch := &Batch{
 		database:      database,
-		kaspad:        kaspad,
+		karlsend:      karlsend,
 		blocks:        make([]*BlockAndHash, 0),
 		hashes:        make(map[externalapi.DomainHash]*BlockAndHash),
 		prunningBlock: prunningBlock,
@@ -121,19 +121,19 @@ func (b *Batch) CollectDirectDependencies(databaseTransaction *pg.Tx, hash *exte
 			return errors.Wrapf(err, "Could not check if parent %s for block %s does exist in database", parentHash, hash)
 		}
 		if !parentExists {
-			parentBlock, err := b.kaspad.Domain().Consensus().GetBlockEvenIfHeaderOnly(parentHash)
+			parentBlock, err := b.karlsend.Domain().Consensus().GetBlockEvenIfHeaderOnly(parentHash)
 			if err != nil {
-				// We ignore the `block not found` kaspad error.
+				// We ignore the `block not found` karlsend error.
 				// In this case the parent is out the node scope so we have no way
 				// to include it in the batch
 				if !errors.Is(err, database.ErrNotFound) {
 					return err
 				} else {
-					log.Warnf("Parent %s for block %s not found by kaspad domain consensus; the missing dependency is ignored", parentHash, hash)
+					log.Warnf("Parent %s for block %s not found by karlsend domain consensus; the missing dependency is ignored", parentHash, hash)
 				}
 			} else {
 				b.Add(parentHash, parentBlock)
-				log.Warnf("Parent %s for block %s found by kaspad domain consensus; the missing dependency is registered for processing", parentHash, hash)
+				log.Warnf("Parent %s for block %s found by karlsend domain consensus; the missing dependency is registered for processing", parentHash, hash)
 			}
 		}
 	}

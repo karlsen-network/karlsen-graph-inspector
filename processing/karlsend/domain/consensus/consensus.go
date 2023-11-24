@@ -1,18 +1,18 @@
 package consensus
 
 import (
-	kaspadConsensus "github.com/kaspanet/kaspad/domain/consensus"
-	consensusDatabase "github.com/kaspanet/kaspad/domain/consensus/database"
-	"github.com/kaspanet/kaspad/domain/consensus/datastructures/ghostdagdatastore"
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/prefixmanager/prefix"
-	"github.com/kaspanet/kaspad/infrastructure/db/database"
+	karlsendConsensus "github.com/karlsen-network/karlsend/domain/consensus"
+	consensusDatabase "github.com/karlsen-network/karlsend/domain/consensus/database"
+	"github.com/karlsen-network/karlsend/domain/consensus/datastructures/ghostdagdatastore"
+	"github.com/karlsen-network/karlsend/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/domain/prefixmanager/prefix"
+	"github.com/karlsen-network/karlsend/infrastructure/db/database"
 )
 
-func New(consensusConfig *kaspadConsensus.Config, databaseContext database.Database, dbPrefix *prefix.Prefix, consensusEventsChan chan externalapi.ConsensusEvent) (*Consensus, bool, error) {
-	kaspadConsensusFactory := kaspadConsensus.NewFactory()
-	kaspadConsensusInstance, shouldMigrate, err := kaspadConsensusFactory.NewConsensus(consensusConfig, databaseContext, dbPrefix, consensusEventsChan)
+func New(consensusConfig *karlsendConsensus.Config, databaseContext database.Database, dbPrefix *prefix.Prefix, consensusEventsChan chan externalapi.ConsensusEvent) (*Consensus, bool, error) {
+	karlsendConsensusFactory := karlsendConsensus.NewFactory()
+	karlsendConsensusInstance, shouldMigrate, err := karlsendConsensusFactory.NewConsensus(consensusConfig, databaseContext, dbPrefix, consensusEventsChan)
 	if err != nil {
 		return nil, false, err
 	}
@@ -24,14 +24,14 @@ func New(consensusConfig *kaspadConsensus.Config, databaseContext database.Datab
 
 	return &Consensus{
 		dbManager:         dbManager,
-		kaspadConsensus:   kaspadConsensusInstance,
+		karlsendConsensus: karlsendConsensusInstance,
 		ghostdagDataStore: ghostdagDataStore,
 	}, shouldMigrate, nil
 }
 
 type Consensus struct {
 	dbManager         model.DBManager
-	kaspadConsensus   externalapi.Consensus
+	karlsendConsensus externalapi.Consensus
 	ghostdagDataStore model.GHOSTDAGDataStore
 
 	onBlockAddedListener      OnBlockAddedListener
@@ -39,7 +39,7 @@ type Consensus struct {
 }
 
 func (c *Consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, shouldValidateAgainstUTXO bool) error {
-	err := c.kaspadConsensus.ValidateAndInsertBlock(block, shouldValidateAgainstUTXO)
+	err := c.karlsendConsensus.ValidateAndInsertBlock(block, shouldValidateAgainstUTXO)
 	if err != nil {
 		return err
 	}
@@ -50,7 +50,7 @@ func (c *Consensus) ValidateAndInsertBlock(block *externalapi.DomainBlock, shoul
 }
 
 func (c *Consensus) ResolveVirtual(progressReportCallback func(uint64, uint64)) error {
-	err := c.kaspadConsensus.ResolveVirtual(progressReportCallback)
+	err := c.karlsendConsensus.ResolveVirtual(progressReportCallback)
 	if err != nil {
 		return err
 	}

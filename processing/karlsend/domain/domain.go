@@ -5,15 +5,15 @@ import (
 	"sync/atomic"
 	"unsafe"
 
-	consensusPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/kaspad/domain/consensus"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/kaspad/domain/mining_manager"
-	"github.com/kaspanet/kaspad/domain/consensus"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/dagconfig"
-	"github.com/kaspanet/kaspad/domain/miningmanager"
-	"github.com/kaspanet/kaspad/domain/prefixmanager"
-	"github.com/kaspanet/kaspad/domain/prefixmanager/prefix"
-	"github.com/kaspanet/kaspad/infrastructure/db/database"
+	consensusPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/consensus"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/mining_manager"
+	"github.com/karlsen-network/karlsend/domain/consensus"
+	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/domain/miningmanager"
+	"github.com/karlsen-network/karlsend/domain/prefixmanager"
+	"github.com/karlsen-network/karlsend/domain/prefixmanager/prefix"
+	"github.com/karlsen-network/karlsend/infrastructure/db/database"
 	"github.com/pkg/errors"
 )
 
@@ -78,7 +78,7 @@ type Domain struct {
 }
 
 // Implementing the interface
-// See kaspad\domain\domain.go
+// See karlsend\domain\domain.go
 
 func (d *Domain) StagingConsensus() externalapi.Consensus {
 	d.stagingConsensusLock.RLock()

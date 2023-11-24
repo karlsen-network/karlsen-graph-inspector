@@ -2,7 +2,7 @@ import { Box, ButtonBase, Tooltip, useTheme } from "@mui/material";
 import { AppConfig, isMainnet, isTestnet } from "../../model/AppConfig";
 import AnimatedItem from "../base/AnimatedItem";
 
-const KaspaLogo = ({ appConfig }: {appConfig: AppConfig | null}) => {
+const KarlsenLogo = ({ appConfig }: {appConfig: AppConfig | null}) => {
     const theme = useTheme();
     let logoColor = theme.palette.brand.logo.main;
     let logoBkgColor = theme.palette.background.paper;
@@ -27,10 +27,10 @@ const KaspaLogo = ({ appConfig }: {appConfig: AppConfig | null}) => {
                         fontWeight: 'normal',
                         fontSize: '1.2em'
                     }}>
-                        <strong>Kaspa Graph Inspector (KGI)</strong><br/>
+                        <strong>Karlsen Graph Inspector (KGI)</strong><br/>
                         <br/>
                         KGI: v{appConfig ? appConfig.webVersion : "n/a"}<br/>
-                        Kaspad: v{appConfig ? appConfig.kaspadVersion : "n/a"}<br/>
+                        Karlsend: v{appConfig ? appConfig.karlsendVersion : "n/a"}<br/>
                         <br/>
                         Network: <strong>{appConfig ? appConfig.network : "n/a"}</strong>
                     </Box>
@@ -60,4 +60,4 @@ const KaspaLogo = ({ appConfig }: {appConfig: AppConfig | null}) => {
     );
 }
 
-export default KaspaLogo;
+export default KarlsenLogo;

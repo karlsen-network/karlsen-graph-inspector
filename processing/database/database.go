@@ -5,9 +5,9 @@ import (
 	"sync"
 
 	"github.com/go-pg/pg/v10"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/database/model"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/database/utils/lrucache"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/database/model"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/database/utils/lrucache"
+	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 
@@ -375,7 +375,7 @@ func (db *Database) GetAppConfig(databaseTransaction *pg.Tx) (*model.AppConfig, 
 // Consequently, the database stores at most one AppConfig row.
 func (db *Database) StoreAppConfig(databaseTransaction *pg.Tx, appConfig *model.AppConfig) error {
 	appConfig.ID = true
-	_, err := databaseTransaction.Model(appConfig).OnConflict("(id) DO UPDATE SET kaspad_version = EXCLUDED.kaspad_version, processing_version = EXCLUDED.processing_version, network = EXCLUDED.network").Insert()
+	_, err := databaseTransaction.Model(appConfig).OnConflict("(id) DO UPDATE SET karlsend_version = EXCLUDED.karlsend_version, processing_version = EXCLUDED.processing_version, network = EXCLUDED.network").Insert()
 	if err != nil {
 		return err
 	}

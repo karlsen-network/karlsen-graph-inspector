@@ -1,2 +1,2 @@
-kaspa-graph-inspector-web
-========================
+karlsen-graph-inspector-web
+===========================

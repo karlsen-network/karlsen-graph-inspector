@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/jessevdk/go-flags"
-	"github.com/kaspa-live/kaspa-graph-inspector/processing/infrastructure/logging"
-	versionPackage "github.com/kaspa-live/kaspa-graph-inspector/processing/version"
-	kaspaConfigPackage "github.com/kaspanet/kaspad/infrastructure/config"
-	kaspaLogger "github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/util"
-	"github.com/kaspanet/kaspad/version"
+	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
+	karlsenConfigPackage "github.com/karlsen-network/karlsend/infrastructure/config"
+	karlsenLogger "github.com/karlsen-network/karlsend/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/version"
 	"github.com/pkg/errors"
 )
 
@@ -25,7 +25,7 @@ const (
 )
 
 var (
-	// DefaultAppDir is the default home directory for kaspad.
+	// DefaultAppDir is the default home directory for karlsend.
 	DefaultAppDir  = util.AppDir(appDataDirectory, false)
 	defaultDataDir = filepath.Join(DefaultAppDir)
 )
@@ -41,7 +41,7 @@ type Flags struct {
 	Resync                   bool     `long:"resync" description:"Force to resync all available node blocks with the PostgrSQL database -- Use if some recently added blocks have missing parents"`
 	ClearDB                  bool     `long:"clear-db" description:"Clear the PostgrSQL database and sync from scratch"`
 	LogLevel                 string   `short:"d" long:"loglevel" description:"Logging level for all subsystems {trace, debug, info, warn, error, critical} -- You may also specify <subsystem>=<level>,<subsystem2>=<level>,... to set the log level for individual subsystems -- Use show to list available subsystems"`
-	kaspaConfigPackage.NetworkFlags
+	karlsenConfigPackage.NetworkFlags
 }
 
 type Config struct {
@@ -92,7 +92,7 @@ func LoadConfig() (*Config, error) {
 	// Show the version and exit if the version flag was specified.
 	if cfg.ShowVersion {
 		fmt.Println(appName, "version", versionPackage.Version())
-		fmt.Println("kaspad version", version.Version())
+		fmt.Println("karlsend version", version.Version())
 		os.Exit(0)
 	}
 
@@ -121,7 +121,7 @@ func LoadConfig() (*Config, error) {
 
 	// Special show command to list supported subsystems and exit.
 	if cfg.LogLevel == "show" {
-		fmt.Println("Supported subsystems", kaspaLogger.SupportedSubsystems())
+		fmt.Println("Supported subsystems", karlsenLogger.SupportedSubsystems())
 		os.Exit(0)
 	}
 
@@ -130,7 +130,7 @@ func LoadConfig() (*Config, error) {
 	logging.InitLog(filepath.Join(cfg.LogDir, defaultLogFilename), filepath.Join(cfg.LogDir, defaultErrLogFilename))
 
 	// Parse, validate, and set debug log level(s).
-	if err := kaspaLogger.ParseAndSetLogLevels(cfg.LogLevel); err != nil {
+	if err := karlsenLogger.ParseAndSetLogLevels(cfg.LogLevel); err != nil {
 		err := errors.Errorf("%s: %s", funcName, err.Error())
 		fmt.Fprintln(os.Stderr, err)
 		fmt.Fprintln(os.Stderr, usageMessage)
