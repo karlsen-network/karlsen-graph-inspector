@@ -33,7 +33,7 @@ For development, it's recommended to run KGI from within Docker
    5. KATNIP_ADDRESS=localhost
    6. API_PORT=4575
    7. WEB_PORT=8080
-   8. KARLSEND_VERSION=4a560f25a60e876b58d2643ca6eb7e07525e76cc (this can be either a specific karlsen commit hash or a karlsend tag)
+   8. KARLSEND_VERSION=95d4a994b7dc992d4a07809bd3ed8280ba3a421a (this can be either a specific karlsen commit hash or a karlsend tag)
    9. KARLSEN_LIVE_ADDRESS=localhost
 4. Run: `./docker-run.sh`
 
@@ -46,7 +46,7 @@ Deployment
    2. Within the `processing` directory, edit `go.mod`:
       1. Delete the line that starts with `replace github.com/karlsen-network/karlsend`
       2. Set your desired karlsend version in the line under `require` that starts with `github.com/karlsen-network/karlsend`
-   3. Within the `processing` directory, run `go build -o  kgi-processing .`. This will produce an executable file named `kgi-processing`
+   3. Within the `processing` directory, run `go build -o kgi-processing .`. This will produce an executable file named `kgi-processing`
    4. Copy `kgi-processing` and `database` directory (also within the `processing` directory) to wherever you wish to run the node from
 3. Build `api`
    1. Make sure the nodejs build environment is set up by running `npm version`
