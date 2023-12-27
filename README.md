@@ -43,11 +43,8 @@ Deployment
 1. Deploy a postgres database instance in any way you desire. Note the address, port, username, password, and database name, since these will be required later
 2. Build `processing`
    1. Make sure the go build environment is set up by running `go version`
-   2. Within the `processing` directory, edit `go.mod`:
-      1. Delete the line that starts with `replace github.com/karlsen-network/karlsend`
-      2. Set your desired karlsend version in the line under `require` that starts with `github.com/karlsen-network/karlsend`
-   3. Within the `processing` directory, run `go build -o kgi-processing .`. This will produce an executable file named `kgi-processing`
-   4. Copy `kgi-processing` and `database` directory (also within the `processing` directory) to wherever you wish to run the node from
+   2. Within the `processing` directory, run `go build -o kgi-processing .`. This will produce an executable file named `kgi-processing`
+   3. Copy `kgi-processing` and `database` directory (also within the `processing` directory) to wherever you wish to run the node from
 3. Build `api`
    1. Make sure the nodejs build environment is set up by running `npm version`
    2. Within the `api` directory, run: `npm install`
