@@ -10,15 +10,6 @@ WORKDIR /build
 COPY ./go.mod .
 COPY ./go.sum .
 
-ARG KARLSEND_VERSION
-
-# Exit if KARLSEND_VERSION is not set
-RUN if [ -z "${KARLSEND_VERSION}" ]; then exit 1; fi
-ARG KARLSEND_REPOSITORY='github.com/karlsen-network/karlsend'
-
-# Replace the karlsend version in go.mod
-RUN go mod edit -replace github.com/karlsen-network/karlsend=$KARLSEND_REPOSITORY@$KARLSEND_VERSION
-
 RUN go mod download
 
 RUN cp go.mod go.mod.bu

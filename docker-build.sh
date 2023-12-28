@@ -4,7 +4,6 @@ set -e
 
 # Verify that all the required environment variables are set
 declare -A REQUIRED_VARIABLES
-REQUIRED_VARIABLES["KARLSEND_VERSION"]="${KARLSEND_VERSION}"
 REQUIRED_VARIABLES["API_ADDRESS"]="${API_ADDRESS}"
 REQUIRED_VARIABLES["API_PORT"]="${API_PORT}"
 
@@ -26,7 +25,7 @@ if [ true = "${REQUIRED_VARIABLE_NOT_SET}" ]; then
 fi
 
 # Build processing
-docker build -f processing/Dockerfile -t karlsen-graph-inspector-processing:latest --build-arg KARLSEND_VERSION="${KARLSEND_VERSION}" processing
+docker build -f processing/Dockerfile -t karlsen-graph-inspector-processing:latest processing
 
 # Build api
 docker build -f api/Dockerfile -t karlsen-graph-inspector-api:latest api

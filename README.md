@@ -32,7 +32,6 @@ For development, it's recommended to run KGI from within Docker
    4. API_ADDRESS=localhost
    5. API_PORT=4455
    6. WEB_PORT=8080
-   7. KARLSEND_VERSION=95d4a994b7dc992d4a07809bd3ed8280ba3a421a (this can be either a specific karlsen commit hash or a karlsend tag)
 4. Run: `./docker-run.sh`
 
 Deployment
