@@ -30,11 +30,10 @@ For development, it's recommended to run KGI from within Docker
    2. POSTGRES_PASSWORD=password
    3. POSTGRES_DB=database-name
    4. API_ADDRESS=localhost
-   5. KATNIP_ADDRESS=localhost
-   6. API_PORT=4575
-   7. WEB_PORT=8080
-   8. KARLSEND_VERSION=95d4a994b7dc992d4a07809bd3ed8280ba3a421a (this can be either a specific karlsen commit hash or a karlsend tag)
-   9. KARLSEN_LIVE_ADDRESS=localhost
+   5. API_PORT=4575
+   6. WEB_PORT=8080
+   7. KARLSEND_VERSION=95d4a994b7dc992d4a07809bd3ed8280ba3a421a (this can be either a specific karlsen commit hash or a karlsend tag)
+   8. KARLSEN_LIVE_ADDRESS=localhost
 4. Run: `./docker-run.sh`
 
 Deployment
