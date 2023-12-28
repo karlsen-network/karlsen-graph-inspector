@@ -30,7 +30,7 @@ For development, it's recommended to run KGI from within Docker
    2. POSTGRES_PASSWORD=password
    3. POSTGRES_DB=database-name
    4. API_ADDRESS=localhost
-   5. API_PORT=4575
+   5. API_PORT=4455
    6. WEB_PORT=8080
    7. KARLSEND_VERSION=95d4a994b7dc992d4a07809bd3ed8280ba3a421a (this can be either a specific karlsen commit hash or a karlsend tag)
 4. Run: `./docker-run.sh`
@@ -51,7 +51,7 @@ Deployment
    1. Make sure the nodejs build environment is set up by running `npm version`
    2. Within the `web` directory, run: `npm install`
    3. Set the following environment variables:
-      1. REACT_APP_API_ADDRESS=example.com:1234 (this is the public address of where your `api` server will be)
+      1. REACT_APP_API_ADDRESS=api.karlsencoin.com:4455 (this is the public address of where your `api` server will be)
       2. REACT_APP_EXPLORER_ADDRESS=explorer.karlsencoin.com
    4. Within the `web` directory, run: `npm run build`
    5. Copy the entire `web` directory to wherever you wish to run the `web` server from
