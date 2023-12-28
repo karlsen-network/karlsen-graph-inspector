@@ -7,7 +7,6 @@ declare -A REQUIRED_VARIABLES
 REQUIRED_VARIABLES["KARLSEND_VERSION"]="${KARLSEND_VERSION}"
 REQUIRED_VARIABLES["API_ADDRESS"]="${API_ADDRESS}"
 REQUIRED_VARIABLES["API_PORT"]="${API_PORT}"
-REQUIRED_VARIABLES["KARLSEN_LIVE_ADDRESS"]="${KARLSEN_LIVE_ADDRESS}"
 
 REQUIRED_VARIABLE_NOT_SET=false
 for REQUIRED_VARIABLE_NAME in "${!REQUIRED_VARIABLES[@]}"; do
@@ -34,5 +33,4 @@ docker build -f api/Dockerfile -t karlsen-graph-inspector-api:latest api
 
 # Build web
 REACT_APP_API_ADDRESS="${API_ADDRESS}:${API_PORT}"
-REACT_APP_KARLSEN_LIVE_ADDRESS="${KARLSEN_LIVE_ADDRESS}"
-docker build -f web/Dockerfile --build-arg REACT_APP_API_ADDRESS="${REACT_APP_API_ADDRESS}" --build-arg REACT_APP_KARLSEN_LIVE_ADDRESS="${REACT_APP_KARLSEN_LIVE_ADDRESS}" -t karlsen-graph-inspector-web:latest web
+docker build -f web/Dockerfile --build-arg REACT_APP_API_ADDRESS="${REACT_APP_API_ADDRESS}" -t karlsen-graph-inspector-web:latest web

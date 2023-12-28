@@ -13,10 +13,8 @@ const resolveAddress = (environmentVariableName: string): string => {
 
 const apiAddress = resolveAddress("REACT_APP_API_ADDRESS");
 const explorerAddress = resolveAddress("REACT_APP_EXPLORER_ADDRESS");
-const karlsenLiveAddress = resolveAddress("REACT_APP_KARLSEN_LIVE_ADDRESS");
 
 export {
     apiAddress,
     explorerAddress,
-    karlsenLiveAddress,
 };
