@@ -121,6 +121,6 @@ Navigate to wherever you copied `web` to:
 
 ```
 cd kgi/web
-npm install -g serve
-serve --listen=8080
+npm install serve
+npx serve --listen=8080
 ```
