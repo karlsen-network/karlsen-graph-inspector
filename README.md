@@ -107,10 +107,27 @@ cd kgi/sync
 
 ### Run KGI API Server
 
+Running the API Server endpoint require to configure the following
+mandatory environment variables:
+
+* `POSTGRES_USER` which is the username for database connection.
+* `POSTGRES_PASSWORD` which is the password for database connection.
+* `POSTGRES_DATABASE` which is the database to be used.
+
+Optional environment variables are the following:
+
+* `POSTGRES_HOST` which is the host of the database server
+  (default: localhost).
+* `POSTGRES_PORT` which is the port for database connection
+  (default: 5432).
+
 Navigate to wherever you copied `api` folder to:
 
 ```
 cd kgi/api
+export POSTGRES_USER=username
+export POSTGRES_PASSWORD=password
+export POSTGRES_DATABASE=database
 export API_PORT=4455
 npm run start
 ```
