@@ -20,7 +20,7 @@ const KarlsenLogo = ({ appConfig }: {appConfig: AppConfig | null}) => {
     }
 
     return (
-        <AnimatedItem borderRadius={"50px"} magnify={1.03}>
+        <AnimatedItem borderRadius={"50px"} magnify={1.03} backgroundColor={theme.palette.primary.main}>
             <Tooltip
                 title={
                     <Box sx={{
