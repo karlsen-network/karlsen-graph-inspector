@@ -114,37 +114,37 @@ export const theme: Theme = {
             roundingRadius: 10,             // Stas original: 10
             blue: {
                 color: {
-                    main: 0x5581AA,         // Stas original: 0xb4cfed,
-                    highlight: 0x85a2c1,    // Stas original: 0x49849e
+                    main: 0x213F5B,         // Stas original: 0xb4cfed,
+                    highlight: 0x053F75,    // Stas original: 0x49849e
                                             // https://fffuel.co/cccolor/ - 0x5581AA - Tint palette 3
-                    contrastText: 0xffffff, // Stas original: 0x666666  
+                    contrastText: 0xFFFFFF, // Stas original: 0x666666  
                 },
                 border: {
-                    color: 0xffffff,        // Stas original: 0xaaaaaa
+                    color: 0xFFFFFF,        // Stas original: 0xaaaaaa
                     width: 2.0,             // Stas original: 3
                 },
             },
             red: {
                 color: {
                     main: 0xB34D50,         // Stas original: 0xfc606f
-                    highlight: 0xa06765,    // Stas original: 0x9e4949
+                    highlight: 0xB8191D,    // Stas original: 0x9e4949
                                             // https://fffuel.co/cccolor/ - 0xB34D50 - Tone palette 5
-                    contrastText: 0xffffff, // Stas original: 0x666666   
+                    contrastText: 0xFFFFFF, // Stas original: 0x666666   
                 },
                 border: {
-                    color: 0xffffff,        // Stas original: 0xaaaaaa
+                    color: 0xFFFFFF,        // Stas original: 0xaaaaaa
                     width: 2.0,             // Stas original: 3
                 },
             },
             gray: {
                 color: {
-                    main: 0xf5f5f5,         // Stas original: 0xf5faff
+                    main: 0xF5F5F5,         // Stas original: 0xf5faff
                     highlight: 0x949494,    // Stas original: 0x78869e
                                             // https://fffuel.co/cccolor/ - 0xf5f5f5 - Shade palette 4
                     contrastText: 0x666666, // Stas original: 0x666666
                 },
                 border: {
-                    color: 0xaaaaaa,        // Stas original: 0xaaaaaa
+                    color: 0xAAAAAA,        // Stas original: 0xaaaaaa
                     width: 2.0,             // Stas original: 3
                 },
             },
@@ -176,7 +176,7 @@ export const theme: Theme = {
         },
 
         dag: {
-            backgroundColor: 0xeeeeee,      // Stas original: 0xffffff
+            backgroundColor: 0x636A6D,      // Stas original: 0xffffff
             headMinRightMargin: 120,
             scaling: {
                 referenceBlockSize: 88,
@@ -185,25 +185,25 @@ export const theme: Theme = {
 
         edge: {
             normal: {
-                color: 0xaaaaaa,            // Stas original: 0xaaaaaa
+                color: 0xAAAAAA,            // Stas original: 0xaaaaaa
                 lineWidth: 2,               // Stas original: 2
                 arrowRadius: 5,             // Stas original: 4
             },
             virtualChain: {
-                color: 0x85a2c1,            // Stas original: 0xb4cfed
+                color: 0x292F36,            // Stas original: 0xb4cfed
                                             // https://fffuel.co/cccolor/ - 0x5581AA - Tint palette 3
                 lineWidth: 5,               // Stas original: 4
                 arrowRadius: 7,             // Stas original: 6
             },
             highlighted: {
                 parent: {
-                    color: 0xaaaaaa,        // Stas original: 0x6be39f
+                    color: 0xAAAAAA,        // Stas original: 0x6be39f
                                             // normal
                     lineWidth: 6,           // Stas original: 4
                     arrowRadius: 8,         // Stas original: 6
                 },
                 child: {
-                    color: 0xaaaaaa,        // Stas original: 0x6be39f
+                    color: 0xAAAAAA,        // Stas original: 0x6be39f
                                             // normal
                     lineWidth: 6,           // Stas original: 4
                     arrowRadius: 8,         // Stas original: 6
@@ -216,15 +216,15 @@ export const theme: Theme = {
                 },
                 virtualChain: {
                     parent: {
-                        color: 0x85a2c1,    // Stas original: 0x7ce0e6,
+                        color: 0x292F36,    // Stas original: 0x7ce0e6,
                                             // virtualChain
                         lineWidth: 8,       // Stas original: 6
                         arrowRadius: 8,     // Stas original: 8
                     },
                     child: {
-                        color: 0x85a2c1,    // Stas original: 0x7ce0e6,
+                        color: 0x292F36,    // Stas original: 0x7ce0e6,
                                             // virtualChain
-                        lineWidth: 8,      // Stas original: 6
+                        lineWidth: 8,       // Stas original: 6
                         arrowRadius: 8,     // Stas original: 8
                     },
                 },
@@ -235,10 +235,10 @@ export const theme: Theme = {
 
         height: {
             color: {
-                main: 0xf7f7f7,             // Stas original: 0xf7f9fa
+                main: 0xF7F7F7,             // Stas original: 0xf7f9fa
                                             // NOT USED
-                highlight: 0xe3e3e3,        // Stas original: 0xe8e8e8
-                contrastText: 0x777777,     // Stas original: 0x777777
+                highlight: 0x4C5157,        // Stas original: 0xe8e8e8
+                contrastText: 0xFAFAFB,     // Stas original: 0x777777
             },
             text: {
                 fontFamily: '"Verdana", "Arial", "Helvetica", sans-serif',
@@ -259,7 +259,7 @@ export const theme: Theme = {
         timeline: {
             maxBlocksPerHeight: 12,         // Stas original: 12
             multiplier: {
-                marginX: 2.0,                // Stas original: 2.0
+                marginX: 2.0,               // Stas original: 2.0
                 minMarginY: 1.0,
             },
             visibleHeightRangePadding: 2,   // Stas original: 2

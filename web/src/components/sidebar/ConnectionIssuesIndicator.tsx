@@ -20,7 +20,7 @@ const ConnectionIssuesIndicator = React.forwardRef<typeof Box, ConnectionIssuesI
                                 backgroundColor: 'warning.light',
                                 borderRadius: '50%',
                                 borderStyle: 'solid',
-                                borderColor: '#ffffff',
+                                borderColor: '#2A2B38',
                                 borderWidth: '5px',
                         }}>
                             <IconButton color="error" size="large">
