@@ -112,12 +112,11 @@ const theme = createTheme({
             main: "#26c6da"
         },
         background: {
-            paper: "#fff"
+            paper: "#E6E6E6"
         },
-
         brand: {
             logo: {
-                main: "#71c9bb",
+                main: "#203A55",
             },
         },
         block: {

@@ -14,13 +14,13 @@ const ConnectionIssuesIndicator = React.forwardRef<typeof Box, ConnectionIssuesI
         const theme = useTheme();
         return (
             <Box ref={ref}>
-                <AnimatedItem borderRadius={"50%"} magnify={1.05}>
+                <AnimatedItem borderRadius={"50%"} magnify={1.05} backgroundColor={theme.palette.primary.main}>
                     <Tooltip title="Connection is unstable" placement="left" arrow enterDelay={theme.transitions.duration.enteringScreen*1.5}>
                         <Box sx={{
                                 backgroundColor: 'warning.light',
                                 borderRadius: '50%',
                                 borderStyle: 'solid',
-                                borderColor: '#ffffff',
+                                borderColor: '#2A2B38',
                                 borderWidth: '5px',
                         }}>
                             <IconButton color="error" size="large">
