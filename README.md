@@ -77,6 +77,7 @@ npm install
 export REACT_APP_API_ADDRESS=api.karlsencoin.com:4455
 export REACT_APP_EXPLORER_ADDRESS=explorer.karlsencoin.com
 npm run build
+npm install serve
 cd ..
 mkdir -p kgi
 cp -r web kgi
@@ -138,6 +139,5 @@ Navigate to wherever you copied `web` to:
 
 ```
 cd kgi/web
-npm install serve
 npx serve --listen=8080
 ```
