@@ -74,7 +74,7 @@ Build and install web frontend:
 ```
 cd web
 npm install
-export REACT_APP_API_ADDRESS=api.karlsencoin.com:4455 
+export REACT_APP_API_ADDRESS=api.karlsencoin.com:4455
 export REACT_APP_EXPLORER_ADDRESS=explorer.karlsencoin.com
 npm run build
 cd ..
