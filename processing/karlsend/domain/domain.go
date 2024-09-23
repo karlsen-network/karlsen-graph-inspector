@@ -7,13 +7,13 @@ import (
 
 	consensusPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/consensus"
 	"github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/mining_manager"
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/domain/miningmanager"
-	"github.com/karlsen-network/karlsend/domain/prefixmanager"
-	"github.com/karlsen-network/karlsend/domain/prefixmanager/prefix"
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/domain/miningmanager"
+	"github.com/karlsen-network/karlsend/v2/domain/prefixmanager"
+	"github.com/karlsen-network/karlsend/v2/domain/prefixmanager/prefix"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
 	"github.com/pkg/errors"
 )
 
