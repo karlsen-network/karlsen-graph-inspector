@@ -1,13 +1,13 @@
 package consensus
 
 import (
-	karlsendConsensus "github.com/karlsen-network/karlsend/domain/consensus"
-	consensusDatabase "github.com/karlsen-network/karlsend/domain/consensus/database"
-	"github.com/karlsen-network/karlsend/domain/consensus/datastructures/ghostdagdatastore"
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/prefixmanager/prefix"
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
+	karlsendConsensus "github.com/karlsen-network/karlsend/v2/domain/consensus"
+	consensusDatabase "github.com/karlsen-network/karlsend/v2/domain/consensus/database"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/datastructures/ghostdagdatastore"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/prefixmanager/prefix"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
 )
 
 func New(consensusConfig *karlsendConsensus.Config, databaseContext database.Database, dbPrefix *prefix.Prefix, consensusEventsChan chan externalapi.ConsensusEvent) (*Consensus, bool, error) {

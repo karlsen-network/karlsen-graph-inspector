@@ -7,7 +7,7 @@ import (
 	"github.com/go-pg/pg/v10"
 	"github.com/karlsen-network/karlsen-graph-inspector/processing/database/model"
 	"github.com/karlsen-network/karlsen-graph-inspector/processing/database/utils/lrucache"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 

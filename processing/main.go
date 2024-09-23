@@ -9,7 +9,7 @@ import (
 	karlsendPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend"
 	processingPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/processing"
 	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
-	"github.com/karlsen-network/karlsend/version"
+	"github.com/karlsen-network/karlsend/v2/version"
 )
 
 func main() {

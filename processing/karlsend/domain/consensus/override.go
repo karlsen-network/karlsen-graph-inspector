@@ -1,6 +1,6 @@
 package consensus
 
-import "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+import "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
 func (c *Consensus) BuildBlock(coinbaseData *externalapi.DomainCoinbaseData, transactions []*externalapi.DomainTransaction) (*externalapi.DomainBlock, error) {
 	return c.karlsendConsensus.BuildBlock(coinbaseData, transactions)

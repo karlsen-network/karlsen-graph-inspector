@@ -9,10 +9,10 @@ import (
 	"github.com/jessevdk/go-flags"
 	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
 	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
-	karlsenConfigPackage "github.com/karlsen-network/karlsend/infrastructure/config"
-	karlsenLogger "github.com/karlsen-network/karlsend/infrastructure/logger"
-	"github.com/karlsen-network/karlsend/util"
-	"github.com/karlsen-network/karlsend/version"
+	karlsenConfigPackage "github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	karlsenLogger "github.com/karlsen-network/karlsend/v2/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/util"
+	"github.com/karlsen-network/karlsend/v2/version"
 	"github.com/pkg/errors"
 )
 
