@@ -4,9 +4,9 @@ import (
 	"github.com/go-pg/pg/v10"
 	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
 	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
-	karlsendPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend"
-	"github.com/karlsen-network/karlsend/v2/domain/consensus/database"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
 )
 
@@ -27,10 +27,10 @@ type BlockAndHash struct {
 	hash *externalapi.DomainHash
 }
 
-func New(database *databasePackage.Database, karlsend *karlsendPackage.Karlsend, prunningBlock *externalapi.DomainBlock) *Batch {
+func New(database *databasePackage.Database, rpcClient *rpcclient.RPCClient, prunningBlock *externalapi.DomainBlock) *Batch {
 	batch := &Batch{
 		database:      database,
-		karlsend:      karlsend,
+		rpcClient:     rpcClient,
 		blocks:        make([]*BlockAndHash, 0),
 		hashes:        make(map[externalapi.DomainHash]*BlockAndHash),
 		prunningBlock: prunningBlock,
@@ -121,17 +121,18 @@ func (b *Batch) CollectDirectDependencies(databaseTransaction *pg.Tx, hash *exte
 			return errors.Wrapf(err, "Could not check if parent %s for block %s does exist in database", parentHash, hash)
 		}
 		if !parentExists {
-			parentBlock, err := b.karlsend.Domain().Consensus().GetBlockEvenIfHeaderOnly(parentHash)
+			rpcBlock, err := b.rpcClient.GetBlock(parentHash.String(), false)
 			if err != nil {
 				// We ignore the `block not found` karlsend error.
 				// In this case the parent is out the node scope so we have no way
 				// to include it in the batch
-				if !errors.Is(err, database.ErrNotFound) {
-					return err
-				} else {
-					log.Warnf("Parent %s for block %s not found by karlsend domain consensus; the missing dependency is ignored", parentHash, hash)
-				}
+				log.Warnf("Parent %s for block %s not found by karlsend domain consensus; the missing dependency is ignored", parentHash, hash)
+				// TODO: Check that this is actually a not found error, and return error otherwise
 			} else {
+				parentBlock, err := appmessage.RPCBlockToDomainBlock(rpcBlock.Block)
+				if err != nil {
+					return err
+				}
 				b.Add(parentHash, parentBlock)
 				log.Warnf("Parent %s for block %s found by karlsend domain consensus; the missing dependency is registered for processing", parentHash, hash)
 			}

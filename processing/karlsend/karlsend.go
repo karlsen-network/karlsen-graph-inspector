@@ -1,4 +1,4 @@
-package kalrsend
+package karlsend
 
 import (
 	configPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
