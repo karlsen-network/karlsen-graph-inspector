@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-pg/pg/extra/pgdebug/v10"
 	"github.com/go-pg/pg/v10"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/logging"
 	"github.com/pkg/errors"
 )
 
