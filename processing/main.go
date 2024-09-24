@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
 
 	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
 	configPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
 	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
-	karlsendPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend"
 	processingPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/processing"
 	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
 	"github.com/karlsen-network/karlsend/v2/version"
@@ -32,30 +32,18 @@ func main() {
 	}
 	defer database.Close()
 
-	karlsend, err := karlsendPackage.New(config)
+	rpcAddress, err := config.NetParams().NormalizeRPCServerAddress(config.RPCServer)
 	if err != nil {
-		logging.LogErrorAndExit("Could not create karlsend: %s", err)
+		panic(err)
 	}
-	processing, err := processingPackage.NewProcessing(config, database, karlsend)
+	rpcClient, err := rpcclient.NewRPCClient(rpcAddress)
 	if err != nil {
-		logging.LogErrorAndExit("Could not initialize processing: %s", err)
+		panic(err)
 	}
 
-	karlsend.SetOnVirtualResolvedListener(func() {
-		err := processing.ResyncVirtualSelectedParentChain()
-		if err != nil {
-			logging.LogErrorAndExit("Could not resync the virtual selected parent chain: %s", err)
-		}
-	})
-	karlsend.SetOnConsensusResetListener(func() {
-		err := processing.ResyncDatabase()
-		if err != nil {
-			logging.LogErrorAndExit("Could not resync database: %s", err)
-		}
-	})
-	err = karlsend.Start()
+	_, err = processingPackage.NewProcessing(config, database, rpcClient)
 	if err != nil {
-		logging.LogErrorAndExit("Could not start karlsend: %s", err)
+		logging.LogErrorAndExit("Could not initialize processing: %s", err)
 	}
 
 	<-make(chan struct{})
