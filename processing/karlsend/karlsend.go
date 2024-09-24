@@ -1,11 +1,11 @@
 package karlsend
 
 import (
-	configPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/database"
-	//"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
-	domainPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain"
-	consensusPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/consensus"
+	configPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/config"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/database"
+	//"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/logging"
+	domainPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/karlsend/domain"
+	consensusPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/karlsend/domain/consensus"
 	"github.com/karlsen-network/karlsend/v2/app/protocol"
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 	karlsendConfigPackage "github.com/karlsen-network/karlsend/v2/infrastructure/config"

@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/jessevdk/go-flags"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
-	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/logging"
+	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/version"
 	karlsenConfigPackage "github.com/karlsen-network/karlsend/v2/infrastructure/config"
 	karlsenLogger "github.com/karlsen-network/karlsend/v2/infrastructure/logger"
 	"github.com/karlsen-network/karlsend/v2/util"

@@ -5,8 +5,8 @@ import (
 	"sync/atomic"
 	"unsafe"
 
-	consensusPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/karlsend/domain/mining_manager"
+	consensusPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/karlsend/domain/consensus"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/karlsend/domain/mining_manager"
 	"github.com/karlsen-network/karlsend/v2/domain/consensus"
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"

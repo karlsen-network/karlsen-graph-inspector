@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
 
-	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
-	configPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
-	processingPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/processing"
-	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/processing/version"
+	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/database"
+	configPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/config"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/logging"
+	processingPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/processing"
+	versionPackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/version"
 	"github.com/karlsen-network/karlsend/v2/version"
 )
 

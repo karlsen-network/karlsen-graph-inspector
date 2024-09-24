@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/config"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/config"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/logging"
 	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
 	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database/ldb"
 	"path/filepath"

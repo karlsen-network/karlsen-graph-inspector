@@ -2,8 +2,8 @@ package batch
 
 import (
 	"github.com/go-pg/pg/v10"
-	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/processing/database"
-	"github.com/karlsen-network/karlsen-graph-inspector/processing/infrastructure/logging"
+	databasePackage "github.com/karlsen-network/karlsen-graph-inspector/v2/processing/database"
+	"github.com/karlsen-network/karlsen-graph-inspector/v2/processing/infrastructure/logging"
 	"github.com/karlsen-network/karlsend/v2/app/appmessage"
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
