@@ -68,7 +68,7 @@ func NewProcessing(config *configPackage.Config,
 }
 
 func (p *Processing) initConsensusEventsHandler() error {
-	err := p.rpcClient.RegisterForVirtualSelectedParentChainChangedNotifications(false, func(notification *appmessage.VirtualSelectedParentChainChangedNotificat
+	err := p.rpcClient.RegisterForVirtualSelectedParentChainChangedNotifications(false, func(notification *appmessage.VirtualSelectedParentChainChangedNotificationMessage) {
 		added, err := hashesFromStrings(notification.AddedChainBlockHashes)
 		if err != nil {
 			panic(err)
@@ -297,6 +297,7 @@ func (p *Processing) ResyncDatabase() error {
 			log.Infof("Adding %d blocks to the database", len(hashesBetweenPruningPointAndHeadersSelectedTip))
 		}
 
+		totalToAdd := len(hashesBetweenPruningPointAndHeadersSelectedTip) - startIndex
 		pruningPointBlock, err := appmessage.RPCBlockToDomainBlock(rpcPruning.Block)
 		if err != nil {
 			return err

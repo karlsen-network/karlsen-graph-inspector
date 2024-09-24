@@ -14,7 +14,7 @@ var log = logging.Logger()
 
 type Batch struct {
 	database      *databasePackage.Database
-	karlsend      *karlsendPackage.Karlsend
+	rpcClient     *rpcclient.RPCClient
 	blocks        []*BlockAndHash
 	hashes        map[externalapi.DomainHash]*BlockAndHash
 	prunningBlock *externalapi.DomainBlock
